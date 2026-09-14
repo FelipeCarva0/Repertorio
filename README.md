@@ -1,0 +1,1 @@
+Este repositório contempla grande parte dos meus estudos pessoais, servindo de forma de repertório de conhecimentos. E consulta a posterior.
