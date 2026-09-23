@@ -1,0 +1,244 @@
+Java
+
+POO
+
+Fortimente Tipada (Todas as variaveis e métodos precisam definir seus tipos, e seus tipos são imutáveis).
+
+Independente de plataforma(o java copilado pode ser executado em diferentes máquinas, pois a JVM executa o bytecode).
+
+JDK -> gero bytecode, faz a copilação/build da aplicação java
+
+JVM -> Ambiente de execução de programa Java
+
+Todo arquivo java precisa ter necessita declarar uma classe. O nome da classe declarada tem que ser igual ao nome do arquivo. Pode haver mais de uma classe dentro do arquivo, a classe que for ter o mesmo nome do arquivo tem que ser public.
+
+Variável -> espaço na memória do computador que armazena valor
+
+tipo nome = valor;
+
+var nome = valor; //var faz inferência de tipo a váriavel
+
+Tipos primitivos de variáveis:
+int -> 8 bits	  -128 a 127
+short -> 16 bits  -32768 a -32767
+int -> 32 bits	  -2.147.483.648 a 2.147.483.647	  	
+long -> 64 bits	  -9.223.372.036.854.775.808 a 9.223.372.036.854.775.807  (coloca L no final do valor ex: 65.4L)
+float -> 32 bits    Precisão simples   (coloca f no final do valor ex: 65.4f)
+double -> 64 bits   Precisão dupla
+boolean -> 1 bit
+char -> 16 bits     'c'
+
+String -> "String"  (É uma classe, não um tipo primitivo de fato).
+
+
+
+Condicionais:
+if(condição){
+  comandos
+}else if(condição 2){
+  comandos
+}else{
+  comandos
+}
+
+Vetores:
+Coleção de valores de um mesmo tipo de tamanho fixo. Exemplo:
+int[] coleção = {1, 2, 3, 4}; //valores inicializados
+int[] numeros = new int[4];  ////valores não inicializados
+
+ArrayList:
+É uma classe, implementa uma lista dinamica. Necessita importar a biblioteca java.util.ArrayList; Exemplo:
+
+ArrayList<String> nomes = new ArrayList();
+metodos de ArrayLlist:
+nomes.add("NovoNome"); //Adiciona um elemento
+nomes.get(indice);  //Pega o elemento
+nomes.remove(indice);  //Remove o elemento, pode ser por indice ou pelo nome do valor
+
+Biblioteca -> conjunto de códigos prontos que você pode utilizar no seu programa
+
+Iteração(loop):
+
+for(int i = 0; i < 10; i++){
+  Comandos
+}
+
+for(Tipo variavel iterada : coleção){
+  Comandos
+}
+Exemplo:
+for(String nome : nomes){
+  System.out.println(nome):
+}
+
+while(condição){
+   Comandos
+}
+
+do {
+    // código
+} while (condição);
+
+Casting(Conversão de dados para outro tipo):
+double to int -> int meuInteiro = (int) pontoFlutuante;
+String to int -> int meuInteiro = Integer.parseInt(minhaString);
+int to String -> String minhaString = String.valueOf(meuInteiro);
+
+Copilação:
+javac nomeArquivo.java  //gera o nomeArquivo.class
+
+java nomeArquivo  //executa o .class
+
+POO em java:
+Class
+
+Construtores -> método especial usado para criar e inicializar um objeto. (Em java tem sobrecarga de metódos, pode haver mais de um construtor). Exemplo:
+
+public class Pessoa {
+    String nome;
+    int idade;
+
+    public Pessoa() {
+        nome = "Sem nome";
+        idade = 0;
+    }
+
+    public Pessoa(String nome) {
+        this.nome = nome;
+        idade = 0;
+    }
+}
+
+Objeto:
+Instancializa um classe chamando o construtor como o new. Exemplo:
+Pessoa alguem = new Pessoa();
+
+Metodos:
+public int somar(int a, int b) {
+    return a + b;
+}
+
+modificadorAcesso tipoRetorno nomeMetodo(parametros){
+  codigo
+  return dadoTipoRetorno;
+}
+
+Metodo especial(método inicial):
+public static void main(String[] args){
+  codigo
+}
+
+
+
+Packge -> definida no topo do codigo dizendo que a classe pertence a um pacote. Eles respeitam a hierarquia dos diretórios, logo é necessario dizer a pasta que a classe pertence.
+
+Modificadores de acesso -> controlam a visibilidade das classes e dos métodos para outras classes e pacotes(package).
+
+public -> acessível de qualquer lugar
+private -> acessível somente dentro da própria classe
+protected -> acessível na própria classe, subclasses e classes do mesmo package
+default -> somente dentro do mesmo package
+
+static -> Faz o membro pertencer à classe, e não a cada objeto.
+final -> Impede alterações dependendo de onde é usado.
+
+Extra sobre modificadores de variáveis e métodos:
+synchronized → controla acesso entre threads
+volatile    → controla visibilidade entre threads
+transient   → não participa da serialização padrão
+
+Interfaces -> contrato que define quais métodos uma classe deve ter, não define como os métodos são implementados e nem as variáveis que serão utilizadas. Exemplo:
+interface Animal {
+    void emitirSom();
+    int andar(int velocidade);	
+}
+
+Implementação da interface:
+class Cachorro implements Animal {  //Herança
+
+    @Override
+    public void emitirSom() {
+        System.out.println("Au au!");
+    }
+
+    @Override
+    public int andar(int velocidade) {
+        return velocidade + 2;
+    }
+}
+
+Cachorro lulu = new Cachorro();
+→ pode acessar métodos de Animal + métodos específicos de Cachorro.
+
+Animal lulu = new Cachorro(); // Polimorfismo
+A variável lulu é do tipo Animal, mas o objeto criado é um Cachorro. Assim, lulu só pode acessar os métodos definidos em Animal, porém será executada a implementação de Cachorro.
+
+*obs: @Override sobrescreve o método pai ou de uma interface
+
+
+Classe Abstrata -> uma classe que serve como base para outras classes. Ela não pode ser instanciada diretamente. Pode ter atributos, métodos normais e/ou métodos abstratos.
+Exemplo:
+abstract class Animal {
+    String nome;
+
+    Animal(String nome) {
+        this.nome = nome;
+    }
+
+    abstract void emitirSom();
+
+    void apresentar() {
+        System.out.println("Nome: " + nome);
+    }
+}
+
+class Cachorro extends Animal {
+
+    Cachorro(String nome) {
+        super(nome); // chama o construtor da classe pai
+    }
+
+    @Override
+    void emitirSom() {
+        System.out.println("Au au!");
+    }
+}
+
+Uso:
+Animal cachorro = new Cachorro("Rex");
+
+cachorro.apresentar(); // Nome: Rex
+cachorro.emitirSom();  // Au au!
+
+Herança -> Uma classe herda atributos e métodos de outra classe, a classe pode ser normal ou classe abstrata.
+
+Polimorfismo -> diferentes comportamentos através de uma mesma referência.
+
+1. Sobrescrita (Override) -> mesmo método, comportamento diferente, decidido em tempo de execução
+
+2. Interface -> diferentes classes implementam o mesmo contrato, também permite polimorfismo de subtipo
+
+3. Sobrecarga (Overloading) -> mesmo nome, parâmetros diferentes, decidido em tempo de compilação
+
+
+Tratamento de exceções -> mecanismo usado para tratar erros que podem ocorrer durante a execução do programa
+
+try{
+   Contém o código que pode gerar uma exceção.
+}catch{
+   Captura e trata a exceção.
+}finally{
+   Executa independentemente de ocorrer ou não uma exceção.
+}
+
+throw -> Usado para lançar uma exceção manualmente
+if (idade < 18) {
+    throw new IllegalArgumentException("Idade inválida");
+}
+
+throws -> Indica que um método pode lançar determinadas exceções, deixando o tratamento para quem chamar o método.
+public void abrirArquivo() throws IOException {
+    // código
+}
+
+
