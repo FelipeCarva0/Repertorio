@@ -1,0 +1,112 @@
+Java parte2
+
+Pacotes(Packages) -> Organiza as classes de formas hierarquicas
+Visibilidades entre pacotes
+
+Java Collections(Framework Java) -> Fornece estruturas de dados
+
+Map -> Estrutura chave valor
+Map<String, String> mapa = new HashMap<>();
+
+Set -> Não permite duplicatas
+Set<String> conjuntoString = new HashSet<>();
+
+List -> Lista ordenada que permite elementos duplicatas
+List<String> lista = new ArrayList<>();
+
+Queue -> Filas, processamento em ordem
+Queue<String> fila = new LinkedList<>();
+
+Generics -> permite criar classes e interfaces tipos parametrizados
+exemplo:
+public class Caixa<T> {
+    private T conteudo;
+
+    public void guardar(T item) {
+        this.conteudo = item;
+    }
+
+    public T pegar() {
+        return conteudo;
+    }
+}
+
+// Uso:
+Caixa<String> caixa = new Caixa<>();
+caixa.guardar("Olá");
+String valor = caixa.pegar(); // sem cast, sem risco de erro de tipo
+
+Records -> Classe imutável
+Exemplo:
+public record Pessoa(String nome, int idade) {
+    public boolean isMaiorDeIdade() {
+        return idade >= 18;
+    }
+}
+
+// Uso:
+Pessoa p = new Pessoa("Ana", 25);
+System.out.println(p.nome());           // Ana
+System.out.println(p);                  // Pessoa[nome=Ana, idade=25]
+System.out.println(p.isMaiorDeIdade()); // true
+
+STREAM API -> Realizar operações funcionais/declaritivas em collections
+
+List<String> nomes = List.of("Ana", "Bruno", "Carla", "Davi");
+
+List<String> resultado = nomes.stream()
+    .filter(nome -> nome.length() > 3)
+    .map(String::toUpperCase)
+    .collect(Collectors.toList());
+
+System.out.println(resultado); // [BRUNO, CARLA, DAVI]
+
+
+MÉTODOS PRINCIPAIS DA STREAM API - JAVA
+=========================================================================================
+
+OPERAÇÕES INTERMEDIÁRIAS (retornam outro Stream, podem ser encadeadas)
+-----------------------------------------------------------------------------------------
+MÉTODO              | DESCRIÇÃO
+-----------------------------------------------------------------------------------------
+filter(Predicate)   | Filtra elementos que atendem a uma condição
+map(Function)        | Transforma cada elemento em outro tipo/valor
+flatMap(Function)    | Achata streams aninhados em um único stream
+sorted()             | Ordena os elementos (ordem natural)
+sorted(Comparator)   | Ordena os elementos com critério customizado
+distinct()           | Remove elementos duplicados
+limit(n)             | Limita o stream aos primeiros n elementos
+skip(n)              | Pula os primeiros n elementos
+peek(Consumer)       | Executa uma ação sem alterar o stream (debug)
+-----------------------------------------------------------------------------------------
+
+OPERAÇÕES TERMINAIS (finalizam o stream e produzem um resultado)
+-----------------------------------------------------------------------------------------
+MÉTODO                 | DESCRIÇÃO
+-----------------------------------------------------------------------------------------
+collect(Collector)      | Reúne o resultado em uma coleção (List, Set, Map, etc.)
+forEach(Consumer)        | Executa uma ação para cada elemento
+toArray()                | Converte o stream em um array
+count()                  | Conta a quantidade de elementos
+sum()                    | Soma os valores (streams numéricas: IntStream, etc.)
+average()                | Calcula a média (streams numéricas)
+min(Comparator)          | Retorna o menor elemento (Optional)
+max(Comparator)          | Retorna o maior elemento (Optional)
+reduce(BinaryOperator)   | Reduz todos os elementos a um único valor
+anyMatch(Predicate)      | Retorna true se ALGUM elemento atender à condição
+allMatch(Predicate)      | Retorna true se TODOS os elementos atenderem à condição
+noneMatch(Predicate)     | Retorna true se NENHUM elemento atender à condição
+findFirst()              | Retorna o primeiro elemento (Optional)
+findAny()                | Retorna qualquer elemento (útil em paralelo) (Optional)
+-----------------------------------------------------------------------------------------
+
+MÉTODOS DE CRIAÇÃO DE STREAM
+-----------------------------------------------------------------------------------------
+MÉTODO                    | DESCRIÇÃO
+-----------------------------------------------------------------------------------------
+collection.stream()        | Cria um stream sequencial a partir de uma coleção
+collection.parallelStream()| Cria um stream paralelo a partir de uma coleção
+Stream.of(...)              | Cria um stream a partir de valores/elementos
+Stream.empty()               | Cria um stream vazio
+IntStream.range(a, b)         | Cria um stream de inteiros de a até b (exclusive)
+=========================================================================================

@@ -41,6 +41,16 @@
   - [Múltiplos catch](#múltiplos-catch)
   - [try-with-resources](#try-with-resources)
   - [Exceções customizadas](#exceções-customizadas)
+- [Pacotes (Packages)](#pacotes-packages)
+- [Java Collections (Framework Java)](#java-collections-framework-java)
+  - [Map](#map)
+  - [Set](#set)
+  - [List](#list)
+  - [Queue](#queue)
+- [Generics](#generics)
+- [Records](#records)
+- [Stream API](#stream-api)
+  - [Métodos principais da Stream API](#métodos-principais-da-stream-api)
 
 ## POO
 
@@ -620,3 +630,150 @@ public void validarIdade(int idade) throws IdadeInvalidaException {
     }
 }
 ```
+
+## Pacotes (Packages)
+
+Organizam as classes de forma hierárquica, definindo também visibilidades entre pacotes.
+
+## Java Collections (Framework Java)
+
+Fornece estruturas de dados prontas para armazenar e manipular grupos de objetos.
+
+### Map
+
+Estrutura chave-valor.
+
+```java
+Map<String, String> mapa = new HashMap<>();
+```
+
+### Set
+
+Não permite elementos duplicados.
+
+```java
+Set<String> conjuntoString = new HashSet<>();
+```
+
+### List
+
+Lista ordenada que permite elementos duplicados.
+
+```java
+List<String> lista = new ArrayList<>();
+```
+
+### Queue
+
+Fila, usada para processamento em ordem.
+
+```java
+Queue<String> fila = new LinkedList<>();
+```
+
+## Generics
+
+Permite criar classes e interfaces com tipos parametrizados. Exemplo:
+
+```java
+public class Caixa<T> {
+    private T conteudo;
+
+    public void guardar(T item) {
+        this.conteudo = item;
+    }
+
+    public T pegar() {
+        return conteudo;
+    }
+}
+```
+
+Uso:
+
+```java
+Caixa<String> caixa = new Caixa<>();
+caixa.guardar("Olá");
+String valor = caixa.pegar(); // sem cast, sem risco de erro de tipo
+```
+
+## Records
+
+Classe imutável. Exemplo:
+
+```java
+public record Pessoa(String nome, int idade) {
+    public boolean isMaiorDeIdade() {
+        return idade >= 18;
+    }
+}
+```
+
+Uso:
+
+```java
+Pessoa p = new Pessoa("Ana", 25);
+System.out.println(p.nome());           // Ana
+System.out.println(p);                  // Pessoa[nome=Ana, idade=25]
+System.out.println(p.isMaiorDeIdade()); // true
+```
+
+## Stream API
+
+Realiza operações funcionais/declarativas em collections. Exemplo:
+
+```java
+List<String> nomes = List.of("Ana", "Bruno", "Carla", "Davi");
+
+List<String> resultado = nomes.stream()
+    .filter(nome -> nome.length() > 3)
+    .map(String::toUpperCase)
+    .collect(Collectors.toList());
+
+System.out.println(resultado); // [BRUNO, CARLA, DAVI]
+```
+
+### Métodos principais da Stream API
+
+**Operações intermediárias** (retornam outro Stream, podem ser encadeadas)
+
+| Método | Descrição |
+|---|---|
+| `filter(Predicate)` | Filtra elementos que atendem a uma condição |
+| `map(Function)` | Transforma cada elemento em outro tipo/valor |
+| `flatMap(Function)` | Achata streams aninhados em um único stream |
+| `sorted()` | Ordena os elementos (ordem natural) |
+| `sorted(Comparator)` | Ordena os elementos com critério customizado |
+| `distinct()` | Remove elementos duplicados |
+| `limit(n)` | Limita o stream aos primeiros n elementos |
+| `skip(n)` | Pula os primeiros n elementos |
+| `peek(Consumer)` | Executa uma ação sem alterar o stream (debug) |
+
+**Operações terminais** (finalizam o stream e produzem um resultado)
+
+| Método | Descrição |
+|---|---|
+| `collect(Collector)` | Reúne o resultado em uma coleção (List, Set, Map, etc.) |
+| `forEach(Consumer)` | Executa uma ação para cada elemento |
+| `toArray()` | Converte o stream em um array |
+| `count()` | Conta a quantidade de elementos |
+| `sum()` | Soma os valores (streams numéricas: IntStream, etc.) |
+| `average()` | Calcula a média (streams numéricas) |
+| `min(Comparator)` | Retorna o menor elemento (Optional) |
+| `max(Comparator)` | Retorna o maior elemento (Optional) |
+| `reduce(BinaryOperator)` | Reduz todos os elementos a um único valor |
+| `anyMatch(Predicate)` | Retorna true se ALGUM elemento atender à condição |
+| `allMatch(Predicate)` | Retorna true se TODOS os elementos atenderem à condição |
+| `noneMatch(Predicate)` | Retorna true se NENHUM elemento atender à condição |
+| `findFirst()` | Retorna o primeiro elemento (Optional) |
+| `findAny()` | Retorna qualquer elemento (útil em paralelo) (Optional) |
+
+**Métodos de criação de Stream**
+
+| Método | Descrição |
+|---|---|
+| `collection.stream()` | Cria um stream sequencial a partir de uma coleção |
+| `collection.parallelStream()` | Cria um stream paralelo a partir de uma coleção |
+| `Stream.of(...)` | Cria um stream a partir de valores/elementos |
+| `Stream.empty()` | Cria um stream vazio |
+| `IntStream.range(a, b)` | Cria um stream de inteiros de a até b (exclusive) |
