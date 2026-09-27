@@ -1,0 +1,2 @@
+#Deletar todos os .class:
+find . -name "*.class" -delete
