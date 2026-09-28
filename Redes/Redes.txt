@@ -1,0 +1,161 @@
+Redes
+
+Modelo OSI:		Arquitetura TCP/IP		Modelo Híbrido
+----------------------------------------------------------------------------------------
+Aplicação		Aplicação			Aplicação
+----------------------------------------------------------------------------------------
+Apresentação		Aplicação			Aplicação
+----------------------------------------------------------------------------------------
+Sessão			Aplicação			Aplicação
+----------------------------------------------------------------------------------------
+Transporte 		Transporte			Transporte
+----------------------------------------------------------------------------------------
+Rede 			Internet			Rede
+----------------------------------------------------------------------------------------
+Enlace			Enlace				Enlace
+----------------------------------------------------------------------------------------
+Física			Enlace				Física
+----------------------------------------------------------------------------------------
+
+Explicação de cada camada:
+Camada Física -> Transmissão de bits
+Camada de Enlace -> Transmissão de dados(quadros) entre vizinhos, controle de erros e fluxo(protocolo ARP, Ethernet e WLAN)
+Camada de Rede -> Roteamento de pacotes (protocolo IPv4, IPv6)
+Camada de Transporte -> Comunicação(de segmento) fim a fim entre processos(protocolo TCP e UDP)
+Camada de Sessão -> Sincronização, verificação, recuperação e troca de dados
+Camada de Apresentação -> Representação de dados (criptografia, compactação)
+Camada de Aplicação -> Por exemplo, HTTP, e-mail, FTP, áudio, vídeo e arquivos
+
+Durante o processo de roteamento a mensagem só passa nas três camadas inferiores
+
+Número IP -> Identifica cada máquina em uma rede
+Porta -> Identifica cada serviço em uma máquina
+
+Classificação das Redes:
+Transmissão:
+	broadcasting -> “Todos” computadores da rede
+	unicasting -> Um computador
+	multicasting -> Um subconjunto de computadores
+	ponto-a-ponto -> Conexões entre pares de computadores
+
+Escala(extensão geografica da rede):
+	Personal Area Network(PAN) -> Rede pessoal, metro quadrado
+	Local Area Network(LAN) -> Rede Local, sala a campus
+	Metropolian Area Network(MAN) -> Rede metropolitana, cidade
+	Wide Area Network(WAN) -> Rede geograficamente distribuída, Internet, País a Planeta
+
+Topologia da Rede:
+	Barramento -> Todos os dispositivos conectados por um único cabo
+	Anel -> Conexão em formato circular; os dados percorrem um caminho fixo
+	Estrela -> Dispositivos conectados a um ponto central (switch/roteador)
+	Estrela Estendida -> Combinação de várias redes com a topologia em estrela, formando uma hierarquia com pontos centrais interligados
+	Árvore -> Estrutura hierárquica com dispositivos conectados em diferentes níveis; combina as características da estrela e do barramento
+	Malha -> Cada dispositivo conecta-se a vários outros, garantindo redundância
+
+Intranet: serviços de uma organização acessíveis aos seus membros internos
+
+Extranet: serviços de uma organização acessíveis a outras organizações que
+precisam dos mesmos
+
+
+Dispositivos:
+Switch -> camada 2 (enlace), conectando dispositivos de uma rede local
+Hub -> camada 1 (física), conectando dispositivos de uma rede local
+Roteador -> conectando redes diferentes e encaminhando mensagens entre elas
+Access Point (AP) -> camada 2 (enlace), conectando dispositivos sem fio (WiFi) a uma rede cabeada
+Ponte (Bridge) -> camada 2 (enlace), conectando duas redes locais, permitindo a comunicação entre elas e reduzindo o tráfego desnecessário
+Modem -> na camada 2 (enlace), convertendo sinais digitais em analógicos e vice-versa para viabilizar a comunicação entre computadores e provedores de Internet
+Firewall -> Controla o tráfego de entrada e saída da rede considerando regras de segurança predefinidas, protegendo contra acessos não autorizados, malware e ataques
+Gateway -> Atua como uma "porta" entre diferentes redes que utilizam protocolos distintos, convertendo os dados entre eles
+Repetidor -> camada 1 (física), amplificando o sinal de uma rede para expandir sua cobertura, útil em redes cabeadas ou sem fio
+Proxy -> Atua como intermediário entre dispositivos da rede e a Internet, filtrando, armazenando em cache e redirecionando solicitações de acesso
+
+Redes Confiáveis -> Tolerância a falhas, Escalabilidade, Qualidade de serviço (QoS), Segurança
+Metas de Segurança:
+	Confidencialidade: somente os destinatários desejados podem ler os dados
+	Integridade: garantia de que os dados não foram alterados durante a transmissão
+	Disponibilidade: garantia de que os usuários autorizados terão acesso pontual e confiável aos dados
+
+Ameaças:
+- Vírus: software malicioso que se infiltra em máquinas para causar danos, roubar dados ou executar ações indesejadas.
+
+- Spyware: software que coleta dados sobre atividades do usuário sem consentimento, como teclas digitadas e navegação.
+
+- Adware: software que exibe anúncios intrusivos, como pop-ups e banners.
+
+- Worm (verme): software malicioso que se espalha automaticamente para outros sistemas pela rede, explorando vulnerabilidades.
+
+- Trojan (cavalo de Tróia): software aparentemente legítimo que contém código malicioso oculto.
+
+- Ataque de dia zero (0-day): exploração de vulnerabilidade desconhecida antes que os desenvolvedores tenham tempo para corrigi-la.
+
+- Ataque de ator de ameaça (Threat Actor): ataque realizado por pessoa ou grupo mal-intencionado contra dispositivos ou recursos de rede.
+
+- Negação de serviço (DoS): sobrecarga de um sistema, rede ou serviço para torná-lo inacessível aos usuários.
+
+Descendo na Hirarquia de camadas:
+Mensagem -> Aplicação
+   V
+Segmento -> Transporte, porta de origem e destino
+   V
+Pacote -> Rede, endereço IP de destino e origem
+   V 
+Quadro(Frame) -> Enlace, endereço MAC
+
+Endereço MAC -> Tem 6 bytes (48 bits), Exemplo: 00:19:B9:FB:E2:58
+
+PROCESSO DE UMA REQUISIÇÃO WEB
+
+- Servidor:
+  IP = 200.13.14.3
+  Porta = 80 (HTTP)
+  MAC = 88:88:88:88:88:88
+
+- Cliente prepara a requisição:
+  IP origem → 192.168.10.2
+  IP destino → 200.13.14.3
+  Porta destino → 80
+
+- Camada de rede:
+  Determina o próximo salto usando o IP de destino.
+
+- ARP:
+  Converte o IP do próximo salto em seu MAC (IPv4).
+  No IPv6, utiliza-se NDP.
+
+- Camada de enlace:
+  Cria o quadro usando o MAC do nó atual e o MAC do próximo salto.
+
+- Switch:
+  Encaminha o quadro com base no MAC.
+
+- Roteador:
+  Remove o quadro recebido, analisa o IP destino, escolhe o próximo salto e cria um novo quadro.
+
+- A cada salto:
+  IP origem/destino → permanecem (sem NAT)
+  Portas → permanecem
+  MAC origem/destino → mudam
+
+- Ao chegar ao servidor:
+  O pacote é entregue à aplicação Web na porta 80.
+
+REGRA PRINCIPAL:
+IP = destino final
+MAC = próximo salto
+Porta = serviço/aplicação
+ARP = IP → MAC
+Roteador = escolhe o próximo salto
+
+Métricas de Rede:
+Latency (Latência)
+Bandwidth (Largura de Banda)
+Throughput (Taxa de Dados)
+Jitter (Flutuação)
+Reliability (Confiabilidade)
+Packet loss rate (Taxa de perda de pacotes)
+
+
+
+
+

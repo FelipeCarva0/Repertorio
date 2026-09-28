@@ -1,0 +1,20 @@
+JavaParte3
+
+Stack(Pilha) -> Armazena a pilha de chamadas de métodos do nosso programa(além de variáveis primitivas, váriaveis locais e referencia para objetos)
+
+Heap -> região de memória para objetos e arrays dinâmicos.
+
+Garbage Collector -> libera espaço no Heap ocupado por objetos que não são mais alcançáveis
+Tipos de Garbage Collector do Java:
+
+Serial GC -> 1 thread, pausa a aplicação durante a coleta, indicado para aplicações leves/heaps pequenas
+
+Parallel GC -> várias threads, prioriza maior throughput, indicado para aplicações que priorizam processamento, pode gerar pausas maiores e maior uso de CPU
+
+G1 GC -> várias threads, divide o Heap em regiões e prioriza regiões com mais lixo, pausas menores e mais previsíveis, coletor padrão do Java, indicado para uso geral e heaps grandes
+
+ZGC -> várias threads, realiza a maior parte da coleta de forma concorrente, pausas ultra baixas, indicado para aplicações sensíveis à latência e heaps muito grandes, maior uso de CPU
+
+Shenandoah -> várias threads, realiza a maior parte da coleta de forma concorrente, pausas ultra baixas, indicado para aplicações sensíveis à latência e heaps grandes, maior uso de CPU
+
+Ferramentas para fazer o Profiling(uso de memória): JProfiler
