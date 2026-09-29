@@ -155,7 +155,129 @@ Jitter (Flutuação)
 Reliability (Confiabilidade)
 Packet loss rate (Taxa de perda de pacotes)
 
+Camada de Aplicação:
+Domain Name System (DNS) - camada de aplicação
+-> Utiliza UDP/TCP na camada de transporte, porta 53
+
+Regra para Nome e Endereço:
+Nome -> tamanho variável, mnemônico, fácil para humanos memorizarem
+Endereço -> tamanho fixo, fácil de processar, possui informações de roteamento
+
+Antigo:
+NIC -> entidade central responsável por administrar os nomes e endereços
+      através do arquivo hosts.txt
+
+Novo:
+DNS -> sistema distribuído e hierárquico que traduz nomes de domínio em endereços IP
+
+Estrutura:
+Espaço de nomes -> estrutura hierárquica de nomes
+Registro de recursos -> associa nomes a informações (IP, e-mail, aliases...)
+Servidores de nomes -> armazenam/fornecem informações DNS
+Resolvedor -> realiza consultas DNS em nome do cliente
+
+Hierarquia:
+Raiz (.) -> TLD (.com, .br...) -> Domínio -> Host
+
+Servidores:
+Raiz -> indica servidores responsáveis pelo TLD
+TLD -> indica servidor autoritativo do domínio
+Autoritativo -> possui os registros oficiais do domínio
+Local/Recursivo -> recebe consultas dos clientes e busca a resposta
+
+Mapeamento Recursivo:
+-> DNS local busca a resposta completa para o cliente
+
+Mapeamento Não Recursivo/Iterativo:
+-> Servidor indica o próximo servidor a ser consultado
+
+File Transfer Protocol(FTP) -> Utilizado para transferência de arquivos entre cliente e servidor
+
+Usa TCP para garantir a entrega dos dados
+
+Conexões:
+Controle -> porta 21
+Dados -> porta 20 (modo ativo) ou porta dinâmica (modo passivo)
+
+FTP não é criptografado.
+-> Para transferência segura, utiliza-se FTPS ou SFTP.
+
+Correio Eletronico
+Funções Básicas: Composição(Criar e responder), Transferência, Notificação, Visualilzação, Organização.
+
+Arquitetura do Correio Eletrônico:
+User Agent(UA) -> permite que o usuário leia, gerencie e envie mensagens
+
+Message Transfer Agent(MTA) -> permite que um processo cliente envie mensagens para outro (servidor)
+
+Message Access Agent(MAA) -> permite que um processo cliente baixe  mensagens de outro (servidor)
+
+Protocolos do Correio Eletrônico
+Simple Mail Transfer Protocol(SMTP) -> envio de mensagens(MTA)
+Post Office Protocol(POP3) -> recebimento, geralmente baixa as mensagens para o dispositivo
+Internet Message Access Protocol(IMAP) -> recebimento e sincronização das mensagens com o servidor
+Multipurpose Internet Mail Extensions(MIME) -> Codificação binária de anexos
+
+World Wide Web (WWW)
+Páginas Web(HTML)
+Uniform Resource Locator(URL) -> Nome mundial de uma página, buscar a página, onde ela está localizada e como acessá-la 
+
+protocolo://nome-dns-da-máquina/pagina.html
+
+Processamento de um link:
+1) Usuário solicita uma URL para o navegador
+2) Navegador solicita endereço IP do servidor web ao de DNS (via UDP)
+3) Servidor de DNS retorna o endereço IP solicitado
+4) Navegador faz uma conexão TCP com o servidor web
+5) Navegador faz solicitação HTTP de uma página para o servidor web
+6) Servidor web envia resposta HTTP com a página solicitada
+7) Navegador requisita outras páginas ao servidor web
+8) Navegador apresenta a página para o usuário*
+9) Navegador e servidor web terminam a conexão TCP
+
+Hyper Text Transfer Protocol (HTTP)
+Funcionamento Básico do HTTP:
+1) Servidor HTTP aguarda conexões
+2) Cliente HTTP abre uma conexão TCP e envia uma mensagem de requisição para o servidor
+3) Servidor retorna uma mensagem de resposta, geralmente contendo o recurso requisitado
+4) Cliente e servidor fecham a conexão TCP
+
+Métodos:
+GET -> solicita ao servidor que envie um arquivo (página)
+Post -> acrescenta algo a uma página web
+
+Mensagens de resposta do HTTP:
+1xx	Informação
+2xx	Sucesso
+3xx	Redirecionamento
+4xx	Erro no Cliente
+5xx	Erro no Servidor
+
+Cabeçalhos de mensagens:
+Requisição -> <método>*<caminho recurso requisitado> <versão do HTTP>
+Resposta -> <versão do HTTP> <código do status da resposta>
+
+Web cache -> Armazeno conteúdo estático de páginas recentes
+
+Replicação de Servidores (Mirroring) -> Replicar o conteúdo de um servidor em múltiplas localidades separadas
+
+Redes de Entrega de Conteúdo(CDN)
+
+Versões do HTTP:
+
+HTTP/0.9 (1991) -> apenas GET, somente HTML
+HTTP/1.0 (1996) -> cabeçalhos, POST e outras funcionalidades
+HTTP/1.1 (1997) -> conexões persistentes, Host, pipeline e cache
+HTTP/2 (2015) -> multiplexação, compressão de cabeçalhos e formato binário
+HTTP/3 (2022) -> QUIC sobre UDP, menor latência e melhor desempenho em redes instáveis
+
+Camada de Transporte -> Responsável pela comunicação fim a fim entre aplicações
+
+Principais protocolos:
+TCP -> orientado à conexão, confiável, ordenado, controle de fluxo/congestionamento
+UDP -> sem conexão, mais simples e rápido, não garante entrega nem ordem
 
 
-
-
+Multiplexação/Demultiplexação:
+-> Multiplexação -> reúne dados de várias aplicações e envia pela rede
+-> Demultiplexação -> entrega os dados recebidos à aplicação correta usando portas
